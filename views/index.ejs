@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center min-h-screen p-6">
+    <h1 class="text-3xl font-bold mb-4">AI-Based Road Trip Audio Companion</h1>
+
+    <!-- Search Form -->
+    
+    <form action="/search" method="POST" class="flex w-full max-w-lg space-x-2">
+        <input name="query" type="text"
+            class="flex-1 bg-gray-800 text-white border-none p-2 rounded-md outline-none"
+            placeholder="Suggest me some religious podcasts..." required>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md">
+            Search
+        </button>
+    </form>
+    
+
+    <!-- Display Search Results -->
+    
+    <div class="mt-6 w-full max-w-lg">
+        <% results.forEach(podcast => { %>
+            <div class="bg-gray-800 my-2 p-3 rounded-lg transition-all duration-300 hover:scale-105">
+                <a href="<%= podcast.link %>" target="_blank"
+                   class="text-blue-400 hover:underline">
+                   <%= podcast.title %>
+                </a>
+            </div>
+        <% }) %>
+    </div>
+    
+</body>
+</html>
