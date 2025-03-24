@@ -1,21 +1,30 @@
 require("dotenv").config();
 const express = require("express");
+const ejs = require("ejs");
+const methodOverride = require("method-override");
+const path = require("path");
+const ejsMate = require("ejs-mate");
+
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public")); // Serve static files
 
-// Home Route
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "/public")));
+
+app.engine("ejs", ejsMate);
+
 app.get("/", (req, res) => {
     res.render("index", { results: [] });
 });
 
-// Search Route (POST)
 app.post("/search", async (req, res) => {
-    const query = req.body.query; // Get query from input
+    const query = req.body.query;
     if (!query) return res.render("index", { results: [] });
 
     const API_KEY = process.env.YOUTUBE_API_KEY;
