@@ -19,9 +19,11 @@ canvas {
   background-size: cover;
 }
 
-.navbar-brand img{
-    width: 100px;
-    height: 100px;
+
+
+.navbar-podx img{
+  width: 300px;
+  height: 150px;
 }
 
 .nav-link{
@@ -33,12 +35,19 @@ nav.navbar{
 }
 
 .search-input-container{
-  height: 100%;
-    width: 100%;
+    height: 100%;
+    width: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 25px;
+    overflow: hidden;
 }
 
 .search-wrap{
@@ -78,7 +87,7 @@ nav.navbar{
   letter-spacing: 1px;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border-radius: 4px;
+  border-radius: 25px;
   box-shadow:
     0 0 15px rgba(0, 255, 213, 0.3),
     inset 0 0 10px rgba(0, 0, 0, 0.8);
@@ -100,34 +109,10 @@ nav.navbar{
   height: 100%;
   pointer-events: none;
   border: 1px solid rgba(0, 150, 255, 0.4);
-  border-radius: 4px;
+  border-radius: 25px;
   z-index: 2;
 }
 
-.input-border::before,
-.input-border::after {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 1px solid rgba(0, 150, 255, 0.7);
-  z-index: 2;
-  transition: all 0.3s ease;
-}
-
-.input-border::before {
-  top: -1px;
-  left: -1px;
-  border-right: none;
-  border-bottom: none;
-}
-
-.input-border::after {
-  bottom: -1px;
-  right: -1px;
-  border-left: none;
-  border-top: none;
-}
 
 .holo-scan-line {
   position: absolute;
@@ -162,7 +147,7 @@ nav.navbar{
     rgba(0, 0, 0, 0) 70%
   );
   opacity: 0;
-  border-radius: 4px;
+  border-radius: 25px;
   z-index: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -170,35 +155,27 @@ nav.navbar{
 
 .input-active-indicator {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 25px;
+  height: 25px;
   background: rgba(0, 150, 255, 0.7);
   border-radius: 50%;
-  right: 20px;
-  top: 25px;
+  right: 30px;
+  top: 0;
+  bottom: 0px;
+  margin: auto 0;
   opacity: 0.3;
   box-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
   transition: all 0.3s ease;
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
   z-index: 2;
-}
-
-.input-label {
-  position: absolute;
-  top: -30px;
-  left: 0;
-  color: rgba(0, 150, 255, 0.7);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  text-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
+  text-align: center;
+  color: #fff;
 }
 
 .input-data-visualization {
   position: absolute;
-  width: calc(100% - 40px);
+  width: calc(100% - 80px);
   height: 3px;
   bottom: 12px;
   left: 20px;
@@ -263,79 +240,10 @@ nav.navbar{
   pointer-events: none;
   z-index: 4;
   mix-blend-mode: overlay;
+  border-radius: 25px;
 }
 
-.interface-lines {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 2;
-}
 
-.interface-line {
-  position: absolute;
-  background: rgba(0, 150, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.interface-line:nth-child(1) {
-  width: 20px;
-  height: 1px;
-  top: 15px;
-  right: 15px;
-}
-
-.interface-line:nth-child(2) {
-  width: 1px;
-  height: 20px;
-  top: 15px;
-  right: 15px;
-}
-
-.interface-line:nth-child(3) {
-  width: 1px;
-  height: 20px;
-  bottom: 15px;
-  left: 15px;
-}
-
-.interface-line:nth-child(4) {
-  width: 20px;
-  height: 1px;
-  bottom: 15px;
-  left: 15px;
-}
-
-.hex-decoration {
-  position: absolute;
-  width: 30px;
-  height: 34px;
-  background: transparent;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  border: 1px solid rgba(0, 150, 255, 0.3);
-  right: -15px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 1;
-  transition: all 0.3s ease;
-  z-index: 2;
-}
-
-.input-status {
-  position: absolute;
-  bottom: -25px;
-  right: 0;
-  font-size: 12px;
-  color: rgba(0, 150, 255, 0.5);
-  letter-spacing: 1px;
-  opacity: 0;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  text-transform: uppercase;
-}
 
 @keyframes scan-animation {
   0% {
@@ -393,12 +301,6 @@ nav.navbar{
   border-color: rgba(0, 180, 255, 0.7);
 }
 
-.holo-input:focus ~ .input-border::before,
-.holo-input:focus ~ .input-border::after {
-  border-color: rgba(0, 180, 255, 1);
-  width: 30px;
-  height: 30px;
-}
 
 .holo-input:focus ~ .holo-scan-line {
   opacity: 1;
@@ -416,12 +318,6 @@ nav.navbar{
   transform: scale(1.2);
 }
 
-.holo-input:focus ~ .input-label {
-  color: rgba(0, 200, 255, 1);
-  text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
-  transform: translateY(-5px);
-}
-
 .holo-input:focus ~ .input-data-visualization {
   opacity: 1;
 }
@@ -430,11 +326,6 @@ nav.navbar{
   animation: data-pulse 2s infinite;
   animation-delay: calc(var(--index) * 0.1s);
 }
-
-.holo-input:focus ~ .input-status {
-  opacity: 1;
-}
-
 .holo-input:focus ~ .interface-lines .interface-line {
   background: rgba(0, 200, 255, 0.6);
 }
@@ -461,23 +352,6 @@ nav.navbar{
 
 .holo-input:hover ~ .hex-decoration {
   border-color: rgba(0, 180, 255, 0.5);
-}
-
-.power-indicator {
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 180, 255, 0.7) 0%,
-    rgba(0, 180, 255, 0.3) 100%
-  );
-  bottom: 0;
-  left: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-  z-index: 3;
 }
 
 .holo-input:focus ~ .power-indicator {
@@ -530,4 +404,6 @@ nav.navbar{
   background: rgba(0, 200, 255, 0.7);
   box-shadow: 0 0 3px rgba(0, 200, 255, 0.5);
 }
+
+
 
