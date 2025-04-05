@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    height: 100vh;
+    height: 200vh;
     width: 100vw;
     font-family: "Turret Road", sans-serif;
     font-size: 1.25rem;
@@ -35,7 +35,7 @@ nav.navbar{
 }
 
 .search-input-container{
-    height: 100%;
+    height: 10%;
     width: 60%;
     display: flex;
     justify-content: center;
@@ -48,6 +48,8 @@ nav.navbar{
     margin: auto;
     border-radius: 25px;
     overflow: hidden;
+    align-content: center;
+    padding-top: 25px;
 }
 
 .search-wrap{
@@ -168,9 +170,11 @@ nav.navbar{
   transition: all 0.3s ease;
   transform: rotate(90deg);
   transition: transform 0.3s ease;
-  z-index: 2;
+  z-index: 100;
   text-align: center;
   color: #fff;
+  cursor: pointer;
+
 }
 
 .input-data-visualization {
