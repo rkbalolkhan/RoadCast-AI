@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Turret+Road:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -44,16 +44,33 @@
         </div>
     </nav>
 
-    <div class="container">
-      <div id="msg-box">
-        <div class="msg-in">
-          <div class="msg-in-text">Suggest me a religious podcast</div>
+    <div class="container chatbot-container">
+        <div id="msg-box">
+          <div class="msg-in">
+            <div class="msg-in-text">Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast</div>
+          </div>
+          
+          <div class="msg-out">
+            <div class="msg-in-text">Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions</div>
+          </div>
+          
+          <div class="msg-in">
+            <div class="msg-in-text">Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast</div>
+          </div>
+          
+          <div class="msg-out">
+            <div class="msg-in-text">Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions</div>
+          </div>
+          
+          <div class="msg-in">
+            <div class="msg-in-text">Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast Suggest me a religious podcast</div>
+          </div>
+          
+          <div class="msg-out">
+            <div class="msg-in-text">Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions Here are some suggestions</div>
+          </div>
         </div>
-        <div class="msg-outr">
-          <div class="msg-in-text">Here are some suggestions</div>
-        </div>
-      </div>
-        <form id="search-form" class="row search-input-container " action="/search" method="POST">
+        <form id="search-form" class="row search-input-container ">
             <div class="search-wrap">
                 <div class="input-container">
                     <div class="input-field-container">
@@ -61,6 +78,18 @@
                       <div class="input-border"></div>
                       <div class="holo-scan-line"></div>
                       <div class="input-glow"></div>
+                      <div class="input-options">
+                        <label for="input-option-music" class="input-option">
+                          <input type="radio" name="input-option" id="input-option-music" ></input>
+                          
+                          <span><i class="fa-solid fa-music"></i>Music</span>
+                        </label>
+                        <label for="input-option-podcast" class="input-option">
+                          <input type="radio" name="input-option" id="input-option-podcast" ></input>
+                          
+                          <span><i class="fa-solid fa-microphone-lines"></i>Podcast</span>
+                        </label>
+                      </div>
                       <div class="input-active-indicator"><i class="fa-solid fa-arrow-up"></i></div>
                       
                   
