@@ -1,0 +1,64 @@
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeSignup" aria-label="Close Signup Modal">&times;</button>
+    <h2 class="modal-title">Sign Up</h2>
+    <form id="signup-form" action="/register" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="signup-firstName">First Name:</label>
+          <input 
+            type="text" 
+            id="signup-firstName" 
+            name="firstName" 
+            placeholder="Enter your first name" 
+            required 
+            aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="signup-lastName">Last Name:</label>
+          <input 
+            type="text" 
+            id="signup-lastName" 
+            name="lastName" 
+            placeholder="Enter your last name" 
+            required 
+            aria-required="true">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signup-username">Username:</label>
+        <input 
+          type="text" 
+          id="signup-username" 
+          name="username" 
+          placeholder="Enter your username" 
+          required 
+          aria-required="true">
+      </div>
+      <div class="form-group">
+        <label for="signup-email">Email:</label>
+        <input 
+          type="email" 
+          id="signup-email" 
+          name="email" 
+          placeholder="Enter your email" 
+          required 
+          aria-required="true">
+      </div>
+      <div class="form-group">
+        <label for="signup-password">Password:</label>
+        <input 
+          type="password" 
+          id="signup-password" 
+          name="password" 
+          placeholder="Enter your password" 
+          required 
+          aria-required="true">
+      </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>

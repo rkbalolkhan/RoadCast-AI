@@ -1,0 +1,29 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <div class="contact-container">
+        <h1 class="project-title">Get in Touch</h1>
+        
+        <div class="contact-content">
+            <section id="contact-form" class="section-contact-form">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="Enter Your name" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="Enter Your email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea name="Enter Your message" id="message" required></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn">Send</button>
+                        <button type="reset" class="btn">Reset</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</body>

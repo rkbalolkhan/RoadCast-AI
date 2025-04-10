@@ -2,19 +2,53 @@ body {
     margin: 0;
     height: 200vh;
     width: 100vw;
-    font-family: "Charm", cursive;
+    font-family: 'Meriweather', serif;
     font-size: 1.25rem;
 }
 
-canvas {
-  display: block;
+.nav-left,.nav-right{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+
+.navbar-nav{
+  text-wrap: nowrap;
+  text-align: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+}
+
+.nav-item{
+  text-align: center;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  
+}
+
+canvas{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 80%;
+  width: 100%;
+  z-index: 0;
+  margin: auto;
+  z-index: -10000;
 }
 
 #particles-js {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url('/images/dark.avif');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -80,28 +114,28 @@ nav.navbar{
 .holo-input {
   width: 100%;
   height: 100%;
-  background: rgba(0, 12, 36, 0.7);
+  background: rgba(40, 40, 40, 0.9); /* Dark background */
   border: none;
   outline: none;
   padding: 0 60px 0 20px;
-  color: rgba(29, 73, 55, 0.9);
+  color: rgba(220, 220, 220, 0.9); /* Light text color */
   font-size: 18px;
   letter-spacing: 1px;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 25px;
   box-shadow:
-    0 0 15px rgba(0, 255, 213, 0.3),
-    inset 0 0 10px rgba(0, 0, 0, 0.8);
+    0 0 15px rgba(0, 0, 0, 0.5), /* Subtle shadow */
+    inset 0 0 10px rgba(0, 0, 0, 0.8); /* Inner shadow */
   transition: all 0.3s ease;
-  text-shadow: 0 0 5px rgba(0, 160, 255, 0.7);
+  text-shadow: none; /* Remove bluish text shadow */
   z-index: 1;
   padding-bottom: 5%;
   text-wrap: wrap;
 }
 
 .holo-input::placeholder {
-  color: rgba(0, 110, 200, 0.4);
+  color: grey; /* Grey placeholder */
   transition: all 0.3s ease;
 }
 
@@ -112,11 +146,10 @@ nav.navbar{
   width: 100%;
   height: 100%;
   pointer-events: none;
-  border: 1px solid rgba(0, 150, 255, 0.4);
+  border: 1px solid rgba(80, 80, 80, 0.8); /* Darker border */
   border-radius: 25px;
   z-index: 2;
 }
-
 
 .holo-scan-line {
   position: absolute;
@@ -124,11 +157,11 @@ nav.navbar{
   height: 2px;
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 150, 255, 0.5) 20%,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 20%,
     rgba(255, 255, 255, 0.8) 50%,
-    rgba(0, 150, 255, 0.5) 80%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(255, 255, 255, 0.5) 80%,
+    rgba(255, 255, 255, 0) 100%
   );
   top: 0;
   left: 0;
@@ -145,11 +178,7 @@ nav.navbar{
   height: 100%;
   top: 0;
   left: 0;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 150, 255, 0.1) 0%,
-    rgba(0, 0, 0, 0) 70%
-  );
+  
   opacity: 0;
   border-radius: 25px;
   z-index: 0;
@@ -187,7 +216,7 @@ nav.navbar{
   justify-content: center;
   align-items: center;
   gap: 0.5em;
-  box-shadow: 0 0 10px rgba(0, 150, 255);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.5);
   color: #fff;
   z-index: 100;
 }
@@ -200,9 +229,9 @@ nav.navbar{
 }
 
 .input-option input[type="radio"]:checked + span {
-  box-shadow: 0 0 0 0.0625em #0043ed;
+  box-shadow: 0 0 0 0.0625em linear-gradient(to right, white, #cccccc);
   z-index: 1;
-  background: rgba(0, 150, 255);
+  background: linear-gradient(to right, black, #333333);
   opacity: 0.9;
 }
 
@@ -210,14 +239,14 @@ nav.navbar{
   position: absolute;
   width: 25px;
   height: 25px;
-  background: rgba(0, 150, 255, 0.7);
+  background: black;
   border-radius: 50%;
   right: 30px;
   top: 60%;
   bottom: 30%;
   margin: auto 0;
   opacity: 0.3;
-  box-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
   transform: rotate(90deg);
   transition: transform 0.3s ease;
@@ -230,7 +259,7 @@ nav.navbar{
 .data-segment {
   width: 4%;
   height: 100%;
-  background: rgba(0, 150, 255, 0.3);
+  background: linear-gradient(to bottom, white, rgba(255, 255, 255, 0.5));
   transition: all 0.5s ease;
 }
 
@@ -255,12 +284,12 @@ nav.navbar{
   position: absolute;
   width: 4px;
   height: 4px;
-  background: rgba(0, 150, 255, 0.7);
+  background: linear-gradient(to bottom, white, rgba(255, 255, 255, 0.7));
   border-radius: 50%;
   opacity: 0;
   filter: blur(1px);
   transition: all 0.3s ease;
-  box-shadow: 0 0 5px rgba(0, 150, 255, 0.7);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 .input-holo-overlay {
@@ -271,9 +300,9 @@ nav.navbar{
   left: 0;
   background-image: linear-gradient(
     90deg,
-    rgba(0, 150, 255, 0.05) 25%,
-    rgba(0, 150, 255, 0.02) 50%,
-    rgba(0, 150, 255, 0.05) 75%
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.05) 75%
   );
   background-size: 8px 100%;
   opacity: 0.5;
@@ -325,22 +354,21 @@ nav.navbar{
 }
 
 .holo-input:focus {
-  background: rgba(0, 22, 46, 0.8);
+  background: rgba(30, 30, 30, 0.9); /* Darker focus background */
   box-shadow:
-    0 0 20px rgba(0, 150, 255, 0.4),
-    inset 0 0 15px rgba(0, 0, 0, 0.9);
-  color: rgba(0, 210, 255, 1);
+    0 0 20px rgba(0, 0, 0, 0.7), /* Enhanced shadow */
+    inset 0 0 15px rgba(0, 0, 0, 0.9); /* Stronger inner shadow */
+  color: rgba(240, 240, 240, 1); /* Brighter text on focus */
 }
 
 .holo-input:focus::placeholder {
-  color: rgba(0, 150, 255, 0.3);
+  color: rgba(120, 120, 120, 0.7); /* Dim placeholder on focus */
   transform: translateX(10px);
 }
 
 .holo-input:focus ~ .input-border {
-  border-color: rgba(0, 180, 255, 0.7);
+  border-color: rgba(150, 150, 150, 1); /* Brighter border on focus */
 }
-
 
 .holo-input:focus ~ .holo-scan-line {
   opacity: 1;
@@ -353,19 +381,19 @@ nav.navbar{
 
 .holo-input:focus ~ .input-active-indicator {
   opacity: 1;
-  background: rgba(0, 200, 255, 1);
-  box-shadow: 0 0 15px rgba(0, 200, 255, 0.7);
+  background: darkgray;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
   transform: scale(1.2);
 }
 
 
 .holo-input:focus ~ .interface-lines .interface-line {
-  background: rgba(0, 200, 255, 0.6);
+  background: linear-gradient(to right, white, rgba(255, 255, 255, 0.6));
 }
 
 .holo-input:focus ~ .hex-decoration {
-  border-color: rgba(0, 200, 255, 0.6);
-  box-shadow: 0 0 10px rgba(0, 200, 255, 0.3);
+  border-color: white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   transform: translateY(-50%) rotate(30deg);
 }
 
@@ -376,7 +404,14 @@ nav.navbar{
 }
 
 .holo-input:hover {
-  background: rgba(0, 15, 40, 0.75);
+  background: rgba(50, 50, 50, 0.9); /* Slightly lighter dark background */
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.6), /* Subtle shadow */
+    inset 0 0 12px rgba(0, 0, 0, 0.8); /* Enhanced inner shadow */
+}
+
+.holo-input:hover ~ .input-border {
+  border-color: rgba(100, 100, 100, 0.9); /* Slightly lighter border on hover */
 }
 
 .holo-input:hover ~ .input-active-indicator {
@@ -384,7 +419,7 @@ nav.navbar{
 }
 
 .holo-input:hover ~ .hex-decoration {
-  border-color: rgba(0, 180, 255, 0.5);
+  border-color: linear-gradient(to right, white, rgba(255, 255, 255, 0.5));
 }
 
 .holo-input:focus ~ .power-indicator {
@@ -411,7 +446,7 @@ nav.navbar{
 .decoration-dot {
   width: 4px;
   height: 4px;
-  background: rgba(0, 150, 255, 0.7);
+  background: rgba(220, 220, 220, 0.9); /* Lighter background */
   border-radius: 50%;
   margin: 3px 0;
 }
@@ -419,7 +454,7 @@ nav.navbar{
 .decoration-line {
   width: 15px;
   height: 1px;
-  background: rgba(0, 150, 255, 0.5);
+  background: rgba(220, 220, 220, 0.9); /* Light color with contrast to black */
   margin: 3px 0;
 }
 
@@ -429,13 +464,13 @@ nav.navbar{
 }
 
 .holo-input:focus ~ .input-decoration .decoration-dot {
-  background: rgba(0, 200, 255, 1);
-  box-shadow: 0 0 5px rgba(0, 200, 255, 0.7);
+  background: linear-gradient(to right, black, white);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 .holo-input:focus ~ .input-decoration .decoration-line {
-  background: rgba(0, 200, 255, 0.7);
-  box-shadow: 0 0 3px rgba(0, 200, 255, 0.5);
+  background: linear-gradient(to right, black, white);
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
 .chatbot-container{
@@ -467,10 +502,11 @@ nav.navbar{
   max-width: 40vw;
   padding: 0.5em 1em;
   text-wrap: wrap;
-  background-color: #001e69;
-  color: white;
-  font-size: 1rem;
+  background-color: rgba(40, 40, 40, 0.9); /* Dark background */
+  color: rgba(220, 220, 220, 0.9); /* Light text color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
   border-radius: 15px;
+  font-size: 1rem;
 }
 
 .msg-in{
@@ -479,4 +515,589 @@ nav.navbar{
 
 .msg-out{
   align-self: flex-start;
+
+}
+
+.youtube-video-card{
+  height: 15rem;
+
+  a{
+    text-decoration: none;
+    width: 100%;
+  }
+}
+
+.video-title{
+  width: 100%;
+  p{
+    font-size: 0.8rem;
+    color: black;
+    text-overflow:ellipsis;
+    overflow-x: hidden;
+    max-width: 8rem;
+    max-height: 1rem;
+    text-wrap: nowrap;
+  }
+}
+
+.video-description {
+  font-size: 0.75rem;
+  color: gray;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 3rem;
+  line-height: 1.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+}
+
+/* Style for the videoSuggestions container */
+.videoSuggestions {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 1.5rem; /* Add spacing between video cards */
+  justify-content: center; /* Center the video cards */
+  padding: 1rem; /* Add padding around the container */
+  background-color: rgba(30, 30, 30, 0.9); /* Dark background for the section */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Style for individual video cards */
+.youtube-video-card {
+  width: 300px; /* Set a fixed width for video cards */
+  background-color: rgba(40, 40, 40, 0.9); /* Dark background for cards */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Clip content that overflows */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.youtube-video-card:hover {
+  transform: translateY(-5px); /* Lift the card slightly on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Enhance shadow on hover */
+}
+
+/* Style for video thumbnails */
+.youtube-video-card img {
+  width: 100%; /* Make the image fill the card width */
+  height: auto; /* Maintain aspect ratio */
+  border-bottom: 1px solid rgba(80, 80, 80, 0.8); /* Add a separator line */
+}
+
+/* Style for video titles */
+.video-title {
+  padding: 1rem; /* Add padding inside the card */
+  color: rgba(220, 220, 220, 0.9); /* Light text color */
+  font-size: 1rem; /* Adjust font size */
+  text-align: center; /* Center-align the text */
+}
+
+/* Style for video descriptions */
+.video-description {
+  font-size: 0.9rem; /* Slightly smaller font size */
+  color: rgba(180, 180, 180, 0.9); /* Dimmer text color */
+  text-align: justify; /* Justify the text */
+  margin-top: 0.5rem; /* Add spacing above the description */
+  line-height: 1.4; /* Improve readability */
+}
+
+/* Contact */
+.contact{
+  height: 50vh;
+  width: 30vw;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  color: white;
+  font-family: "Merriweather";
+}
+.contact h1{
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+  font-size: 2rem;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.contact label{
+  font-size: 1.2rem;
+  color: rgb(168, 214, 31);
+  margin-bottom: 10px;
+  display: block;
+}
+.contact input,
+.contact textarea{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(80, 80, 80, 0.8);
+  border-radius: 5px;
+  background-color: rgba(40, 40, 40, 0.9); /* Dark background */
+  color: rgba(220, 220, 220, 0.9); /* Light text color */
+  font-size: 1rem;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.contact input:focus,
+.contact textarea:focus{
+  outline: none;
+  border-color: rgba(150, 150, 150, 1);
+  background-color: #333;
+}
+.contact textarea{
+ resize: vertical;
+ min-height: 120px;
+}
+
+.contact button{
+  width: 48%;
+  padding: 12px;
+  background-color: rgba(80, 80, 80, 0.9);
+  color: rgba(220, 220, 220, 0.9);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+.contact button:hover{
+  background-color: rgb()
+}
+
+/* Contact form buttons */
+.form-buttons button {
+  width: 48%;
+  padding: 12px;
+  background-color: rgba(80, 80, 80, 0.9); /* Dark background */
+  color: rgba(220, 220, 220, 0.9); /* Light text color */
+  border: 1px solid rgba(150, 150, 150, 0.8); /* Subtle border */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+}
+
+.form-buttons button:hover {
+  background-color: rgba(100, 100, 100, 0.9); /* Slightly lighter background on hover */
+  color: rgba(255, 255, 255, 1); /* Brighter text color on hover */
+  border-color: rgba(200, 200, 200, 1); /* Brighter border on hover */
+}
+
+/* Modal styling */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+}
+
+/* Modal content styling */
+.modal-content {
+  background-color: rgba(40, 40, 40, 0.9); /* Dark background */
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  color: rgba(220, 220, 220, 0.9); /* Light text color */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* Modal title styling */
+.modal-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+/* Close button styling */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: rgba(220, 220, 220, 0.9);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: rgb(168, 214, 31);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(80, 80, 80, 0.8);
+  border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.9);
+  color: rgba(220, 220, 220, 0.9);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: rgba(150, 150, 150, 1);
+  background-color: #333;
+}
+
+/* Button styling */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.btn {
+  width: 48%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: rgba(80, 80, 80, 0.9);
+  color: rgba(220, 220, 220, 0.9);
+}
+
+.btn-primary:hover {
+  background-color: rgba(100, 100, 100, 0.9);
+}
+
+.btn-secondary {
+  background-color: rgba(60, 60, 60, 0.9);
+  color: rgba(200, 200, 200, 0.9);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(80, 80, 80, 0.9);
+}
+
+.project-title {
+  font-size: 2rem; /* Increased text size */
+  text-align: center;
+  margin-bottom: 1rem;
+  border: #333333;
+  border-radius: 1rem;
+  background: linear-gradient(to right, white, rgba(255, 255, 255, 0.7));
+ 
+  color: white; /* Changed font color to white */
+}
+/* Project title styling */
+
+.about-container {
+  position: absolute;
+  top: 20%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 80vh;
+  width: 80vw;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.about-content{
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+}
+
+.project-title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: white; /* Changed font color to white */
+  background: none; /* Removed gradient background */
+}
+
+/* Section styling */
+.section-about-project,
+.section-technologies-used,
+.section-about-developers {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  max-width: 800px;
+  background: rgba(40, 40, 40, 0.9); /* Dark background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Section title styling */
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: white; /* Changed font color to white */
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+/* Section content styling */
+.section-content {
+  font-size: 1rem;
+  color: white; /* Changed font color to white */
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+/* Technologies list styling */
+.technologies-list {
+  list-style-type: disc;
+  margin: 1rem 0 1rem 1.5rem;
+  padding: 0;
+}
+
+.technology-item {
+  font-size: 1rem;
+  color: white; /* Changed font color to white */
+  margin-bottom: 0.5rem;
+}
+
+.contact-container {
+  position: absolute;
+  top: 0%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40vw;
+  height: auto;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  
+  
+}
+
+.contact-content{
+  height: auto;
+  padding: 1.5rem;
+   background: rgba(40, 40, 40, 0.9); 
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: rgba(220, 220, 220, 0.9);
+  /* overflow: scroll;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;  */
+}
+
+
+/* Section title styling */
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: white;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: rgba(100, 100, 100, 0.9);
+}
+
+/* Modal styling */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+}
+
+/* Modal dialog styling */
+.modal-dialog {
+  margin: 10% auto;
+  width: 30%;
+}
+
+/* Modal content styling */
+.modal-content {
+  background-color: rgba(40, 40, 40, 0.9); /* Dark background */
+  padding: 20px;
+  border-radius: 10px;
+  color: rgba(220, 220, 220, 0.9); /* Light text color */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Modal header styling */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(80, 80, 80, 0.8);
+  margin-bottom: 1rem;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  color: white;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: rgba(220, 220, 220, 0.9);
+  cursor: pointer;
+}
+
+.btn-close:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Modal body styling */
+.modal-body {
+  padding: 1rem 0;
+}
+
+/* Form group styling */
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-size: 1rem;
+  color: rgb(168, 214, 31);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(80, 80, 80, 0.8);
+  border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.9);
+  color: rgba(220, 220, 220, 0.9);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: rgba(150, 150, 150, 1);
+  background-color: #333;
+}
+
+/* Button styling */
+.btn {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: rgba(80, 80, 80, 0.9);
+  color: rgba(220, 220, 220, 0.9);
+}
+
+.btn-primary:hover {
+  background-color: rgba(100, 100, 100, 0.9);
+}
+
+.modal-content {
+  width: 40%; /* Increased width */
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1; /* Equal width for both fields */
+}
+
+.form-row .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-row .form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(80, 80, 80, 0.8);
+  border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.9);
+  color: rgba(220, 220, 220, 0.9);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+
+.form-row .form-group input:focus {
+  outline: none;
+  border-color: rgba(150, 150, 150, 1);
+  background-color: #333;
 }
