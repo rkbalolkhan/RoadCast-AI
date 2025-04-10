@@ -555,9 +555,8 @@ nav.navbar{
 /* Style for the videoSuggestions container */
 .videoSuggestions {
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  flex-direction: column; /* Align items vertically */
   gap: 1.5rem; /* Add spacing between video cards */
-  justify-content: center; /* Center the video cards */
   padding: 1rem; /* Add padding around the container */
   background-color: rgba(30, 30, 30, 0.9); /* Dark background for the section */
   border-radius: 10px; /* Rounded corners */
@@ -566,12 +565,16 @@ nav.navbar{
 
 /* Style for individual video cards */
 .youtube-video-card {
-  width: 300px; /* Set a fixed width for video cards */
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  align-items: center; /* Center-align content */
+  width: 100%; /* Full width */
   background-color: rgba(40, 40, 40, 0.9); /* Dark background for cards */
   border-radius: 10px; /* Rounded corners */
   overflow: hidden; /* Clip content that overflows */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+  padding: 1rem; /* Add padding inside the card */
 }
 
 .youtube-video-card:hover {
@@ -583,23 +586,24 @@ nav.navbar{
 .youtube-video-card img {
   width: 100%; /* Make the image fill the card width */
   height: auto; /* Maintain aspect ratio */
-  border-bottom: 1px solid rgba(80, 80, 80, 0.8); /* Add a separator line */
+  border-radius: 10px; /* Rounded corners for the image */
+  margin-bottom: 1rem; /* Add spacing below the image */
 }
 
 /* Style for video titles */
 .video-title {
-  padding: 1rem; /* Add padding inside the card */
+  font-size: 1.2rem; /* Adjust font size */
   color: rgba(220, 220, 220, 0.9); /* Light text color */
-  font-size: 1rem; /* Adjust font size */
   text-align: center; /* Center-align the text */
+  margin-bottom: 0.5rem; /* Add spacing below the title */
+  font-weight: bold; /* Make the title bold */
 }
 
 /* Style for video descriptions */
 .video-description {
-  font-size: 0.9rem; /* Slightly smaller font size */
+  font-size: 1rem; /* Slightly smaller font size */
   color: rgba(180, 180, 180, 0.9); /* Dimmer text color */
   text-align: justify; /* Justify the text */
-  margin-top: 0.5rem; /* Add spacing above the description */
   line-height: 1.4; /* Improve readability */
 }
 
