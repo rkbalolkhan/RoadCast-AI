@@ -13,3 +13,8 @@ submitBtn.addEventListener("click", function() {
     })
 }
 )
+
+// setInterval(() => {
+//     location.reload();
+//     console.log("Reloading page every 1 seconds...")
+// }, 5000);

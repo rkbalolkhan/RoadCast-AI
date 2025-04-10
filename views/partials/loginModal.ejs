@@ -1,0 +1,44 @@
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeLogin" aria-label="Close Login Modal">&times;</button>
+    <h2 class="modal-title">Login</h2>
+    <form id="login-form" action="/login" method="POST">
+      <div class="form-group">
+        <label for="login-email">Email:</label>
+        <input 
+          type="email" 
+          id="login-email" 
+          name="email" 
+          placeholder="Enter your email" 
+          required 
+          aria-required="true">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password:</label>
+        <input 
+          type="password" 
+          id="login-password" 
+          name="password" 
+          placeholder="Enter your password" 
+          required 
+          aria-required="true">
+      </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="logoutModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeLogout" aria-label="Close Logout Modal">&times;</button>
+    <h2 class="modal-title">Logout</h2>
+    <p>Are you sure you want to logout?</p>
+    <div class="form-buttons">
+      <button id="confirmLogout" class="btn btn-primary">Logout</button>
+      <button id="cancelLogout" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+</div>
