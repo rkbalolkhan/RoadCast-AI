@@ -1,3 +1,17 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const radioButtons = document.querySelectorAll("input[name='input-option']");
+
+  radioButtons.forEach((radio) => {
+    radio.addEventListener("click", function () {
+      if (this.checked) {
+        this.checked = false; // Uncheck if already checked
+      } else {
+        this.checked = true; // Check if not already checked
+      }
+    });
+  });
+});
+
 const form=document.getElementById("search-form");
 const submitBtn=document.querySelector("div.input-active-indicator")
 submitBtn.addEventListener("click", function() {
@@ -14,7 +28,3 @@ submitBtn.addEventListener("click", function() {
 }
 )
 
-// setInterval(() => {
-//     location.reload();
-//     console.log("Reloading page every 1 seconds...")
-// }, 5000);

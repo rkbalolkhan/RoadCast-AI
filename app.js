@@ -86,22 +86,62 @@ app.get("/contact", (req, res) => {
     res.render("contact");
 });
 
+let results = [
+  {
+    title: "AL QUDS DAY | JUMMA TUL WIDA | MUFTI SALMAN AZHARI",
+    link: "https://www.youtube.com/watch?v=4tXDPQjmcTI",
+    thumbnail: "https://i.ytimg.com/vi/4tXDPQjmcTI/default.jpg",
+    description:
+      "Assalamu Alaikum You all know that this official Channel is specially made for delivering Islamic lectures of renowned Islamic ...",
+  },
+  {
+    title: "SHAB E QADR | RAMADAN 2025 | MUFTI SALMAN AZHARI",
+    link: "https://www.youtube.com/watch?v=iZOws3h-1JA",
+    thumbnail: "https://i.ytimg.com/vi/iZOws3h-1JA/default.jpg",
+    description:
+      "Assalamu Alaikum You all know that this official Channel is specially made for delivering Islamic lectures of renowned Islamic ...",
+  },
+  {
+    title:
+      "उठो ए जवानों छोड़ दो इन तमाम अय्याशियों को Mufti Salman Azhari Sahab Bayan",
+    link: "https://www.youtube.com/watch?v=_yB9uIlXYos",
+    thumbnail: "https://i.ytimg.com/vi/_yB9uIlXYos/default.jpg",
+    description: "",
+  },
+  {
+    title:
+      "Mufti Salman Azhari | Quran Ki Dunya | Episode 07 | Quran Pak Ke Mazameen Aur Us Ka Challenge",
+    link: "https://www.youtube.com/watch?v=IB5h7ozZF3Q",
+    thumbnail: "https://i.ytimg.com/vi/IB5h7ozZF3Q/default.jpg",
+    description:
+      "Mufti Salman Azhari | Quran Ki Dunya | Episode 07 | Quran Pak Ke Mazameen Aur Us Ka Challenge. Do not forget to subscribe ...",
+  },
+  {
+    title:
+      "MEHFIL E ZIKR WA LAYLATUL QADR | 23RD RAMADAN LIVE | MUFTI SALMAN AZHARI",
+    link: "https://www.youtube.com/watch?v=bQBQia6dUpI",
+    thumbnail: "https://i.ytimg.com/vi/bQBQia6dUpI/default.jpg",
+    description:
+      "Assalamu Alaikum You all know that this official Channel is specially made for delivering Islamic lectures of renowned Islamic ...",
+  },
+];
 
 app.get("/", (req, res) => {
-    res.render("index", { results: [] });
+    res.render("index", { results });
 });
 
-const query = "mufti+salman+azhari+podcast";
 app.get("/search", async (req, res) => {
-    // if (!query) return res.render("index", { results: [] });
+    console.log(req);
+    const query = req.query.query;
+    if (!query) return res.render("index", { results: [] });
 
-    const API_KEY = "AIzaSyCWCFR_g2kz-b9Cdi84jheG9MWWuqB80jc";
+    const API_KEY = "AIzaSyDwLkd7J-TCcZvxCgYE-FLFpeVxuIh0q-Y";
     const API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=${API_KEY}`;
 
     try {
         const response = await fetch(API_URL);
         const data = await response.json();
-        console.log("data: ",data.items[0].snippent);
+        console.log("data: ",data.items[0]);
 
         const results = data.items.map(item => ({
             title: item.snippet.title,
@@ -109,6 +149,8 @@ app.get("/search", async (req, res) => {
             thumbnail: item.snippet.thumbnails.default.url,
             description: item.snippet.description // Add video description
         }));
+
+        console.log(results);
 
         res.render("index", { results });
     } catch (error) {
