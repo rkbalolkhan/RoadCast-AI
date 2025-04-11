@@ -22,11 +22,11 @@
             <% } %>
           </div>
         </div>
-        <form id="search-form" class="row search-input-container ">
+        <form action="/search" method="get" id="search-form" class="row search-input-container " autocomplete="off">
             <div class="search-wrap">
                 <div class="input-container">
                     <div class="input-field-container">
-                      <input type="text" class="holo-input" placeholder="Ask Anything ..." />
+                      <input type="text" class="holo-input" name="query" placeholder="Message Pod X" />
                       <div class="input-border"></div>
                       <div class="holo-scan-line"></div>
                       <div class="input-glow"></div>

@@ -1,14 +1,14 @@
-<div class="youtube-video-card card col-3">
+<div class="youtube-video-card card">
   <a href="<%= result.link %>" target="_blank">
-    <img
-      src="<%= result.thumbnail %>"
-      class="card-img-top"
-      alt="<%= result.title %>"
-      class="video-thumbnail"
-    />
+    
     <div class="video-title card-body">
         <p><strong><%= result.title %></strong></p>
         <p class="video-description"><%= result.description %></p>
     </div>
+    <img
+      src="<%= result.thumbnail %>"
+      alt="<%= result.title %>"
+      class="video-thumbnail"
+    />
   </a>
 </div>
