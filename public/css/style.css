@@ -4,7 +4,7 @@ body {
   width: 100vw;
   font-family: "Meriweather", serif;
   font-size: 1.25rem;
-  background-color: #333;
+  background-color: black;
 }
 
 main {
@@ -542,7 +542,6 @@ nav.navbar {
   width: 80%;
   left: 0;
   right: 0;
-  margin: 0 auto;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -1292,7 +1291,7 @@ nav.navbar {
 }
 
 /* Slider Toggle Button */
-.slider-toggle-btn {
+.slider-toggle-btn,.new-chat-btn {
   background: none;
   border: none;
   color: rgba(220, 220, 220, 0.9);
@@ -1309,6 +1308,12 @@ nav.navbar {
   width: 2rem;
   height: 2rem;
   transform: rotateZ(180deg);
+}
+
+.slider-navbar .new-chat-btn img{
+  width: 2rem;
+  height: 2rem;
+  
 }
 
 .slider-navbar.collapsed .slider-toggle-btn img {
@@ -1452,38 +1457,6 @@ nav.navbar {
   transition: width 0.3s ease, transform 0.3s ease; /* Ensure smooth collapse */
 }
 
-.slider-navbar .slider-nav-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.slider-navbar .slider-nav-links li {
-  text-align: left;
-}
-
-.slider-navbar .slider-nav-links a {
-  text-decoration: none;
-  color: rgba(220, 220, 220, 0.9);
-  font-size: 1rem;
-  transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
-}
-
-.slider-navbar .slider-nav-links a:hover {
-  color: rgba(255, 255, 255, 1);
-}
-
-.slider-navbar.open .slider-nav-links a {
-  transform: translateX(0); /* Reset transform when open */
-}
-
-.slider-navbar.collapsed .slider-nav-links a {
-  transform: translateX(-10px); /* Slight shift when collapsed */
-}
-
 /* Main Container Styling */
 .main-container {
   margin-left: 250px; /* Default margin to account for the sidebar */
@@ -1491,9 +1464,171 @@ nav.navbar {
   transition: margin-left 0.3s ease; /* Smooth transition for margin */
   position: fixed;
   height: 100%;
+  width: 100%;
+  right: 0;
 }
 
 .slider-navbar.collapsed ~ .main-container {
   margin-left: 60px; /* Adjust margin when the sidebar is collapsed */
   width: 100%;
 }
+
+
+
+
+
+/* Popup container styling */
+
+.chat-menu-popup{
+  display: none !important;
+}
+
+
+.chat-menu-popup.open {
+  display: block !important;
+  position:absolute;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  width: 150px;
+  z-index: 1000;
+  right: 0;
+  top: 0;
+}
+
+/* List styling */
+.chat-menu-popup ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Individual item styling */
+.chat-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+}
+
+.chat-menu-item:hover {
+  background-color: #444;
+}
+
+/* Delete item specific styling */
+.chat-menu-item.delete {
+  color: #ff4d4d;
+}
+
+/* Icon styling */
+.chat-menu-item i {
+  margin-right: 10px;
+}
+
+.edit-form-popup {
+  display: none; /* Hidden by default */  
+  
+}
+
+.edit-form-popup.open {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 30rem;
+  height: 15rem;
+  background-color: #2c2c2c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Added box shadow */
+  z-index: 1000; /* Ensure it appears above other elements */
+
+
+
+
+  h6{
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+    margin: 0;
+  }
+
+  .edit-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+    width: 100%;
+    
+    
+  }
+}
+
+/* Styling for input fields */
+.edit-form input {
+  width: 80%;
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edit-form input:focus {
+  border-color: #888;
+  box-shadow: 0 0 5px rgba(136, 136, 136, 0.8);
+}
+
+.edit-form input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Styling for edit-form buttons */
+.edit-form-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edit-form-btns button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #444;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.edit-form-btns button:hover {
+  background-color: #555;
+  transform: scale(1.05);
+}
+
+.edit-form-btns .delete-btn {
+  background-color: #ff4d4d;
+}
+
+.edit-form-btns .delete-btn:hover {
+  background-color: #e63939;
+}
+

@@ -6,93 +6,20 @@
   <button id="openSlider" class="slider-toggle-btn" aria-label="Open Slider">
     <img src="/svg/sidebar.svg" alt="" srcset="">
   </button>
+  <button id="openNewChat" class="new-chat-btn" aria-label="New Chat">
+    <img src="/svg/newChat.svg" alt="" srcset="">
+  </button>
   <div class="navbar-chat-history">
     <div class="history-day">
       <p class="chats-date">Today</p>
       <div class="chat-history-item">
         <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <i class="fa-solid fa-ellipsis-vertical" id="openChatMenu"></i>
+        <%- include("chatMenuPopup.ejs") %>
       </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
+      
     </div>
-    <div class="history-day">
-      <p class="chats-date">Today</p>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-    </div>
+    
   </div>
 
   <div id="openProfile" class="slider-navbar-bottom">
