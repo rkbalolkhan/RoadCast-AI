@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const sliderNavbar = document.getElementById("sliderNavbar");
-  const openSlider = document.getElementById("openSlider");
+  const toggleSidebar = document.getElementById("openSlider");
   const profilePopup= document.getElementById("profilePopup");
   const openProfile = document.getElementById("openProfile");
-  // Open slider navbar
-  openSlider.addEventListener("click", () => {
-    sliderNavbar.classList.toggle("open");
+
+  // Toggle sidebar width
+  toggleSidebar.addEventListener("click", () => {
+    sliderNavbar.classList.toggle("collapsed");
   });
 
   openProfile.addEventListener("click", () => {
@@ -17,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Close slider when clicking outside
   window.addEventListener("click", (e) => {
-    if (!sliderNavbar.contains(e.target) && e.target !== openSlider) {
-      sliderNavbar.classList.remove("open");
+    if (!sliderNavbar.contains(e.target) && e.target !== toggleSidebar) {
+      sliderNavbar.classList.add("collapsed");
     }
     
   });
