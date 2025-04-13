@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  height: 200vh;
+  height: 100vh;
   width: 100vw;
   font-family: "Meriweather", serif;
   font-size: 1.25rem;
@@ -14,7 +14,7 @@ main {
   gap: 0.5rem;
 }
 
-main .container {
+main .container, .chatbot-container {
   background-color: #000;
   height: 100vh;
   width: 100vw;
@@ -61,15 +61,12 @@ canvas {
   width: 100%;
   z-index: 0;
   margin: auto;
-  z-index: -10000;
 }
 
 #particles-js {
-  position: absolute;
-  width: 100%;
-  height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
+  top: 0;
 }
 
 .navbar-podx img {
@@ -492,7 +489,49 @@ nav.navbar {
 }
 
 .chatbot-container {
-  height: 98%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.chat-title{
+  color: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+}
+
+.chat-title h5 {
+  text-align: center;
+  margin: 0;
+}
+
+.chat-title i{
+  font-size: 0.9rem;
+  color: rgba(100, 100, 100, 0.9);
+  opacity: 0;
+  cursor: pointer;
+
+ 
+}
+
+.chat-title:hover{
+  border: 1px solid rgba(100, 100, 100, 0.9);
+  i{
+    opacity: 1;
+    transition: all 0.3s ease;
+
+  }
+}
+
+.slider-navbar.collapsed ~ .chatbot-container {
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -518,7 +557,6 @@ nav.navbar {
   height: fit-content;
   min-height: fit-content;
   min-width: fit-content;
-  max-width: 40vw;
   padding: 0.5em 1em;
   text-wrap: wrap;
   background-color: rgba(40, 40, 40, 0.9); /* Dark background */
@@ -528,12 +566,38 @@ nav.navbar {
   font-size: 1rem;
 }
 
+.msg-in, .msg-out{
+  max-width: 50%;
+}
+
 .msg-in {
   align-self: flex-end;
 }
 
 .msg-out {
   align-self: flex-start;
+  display: flex;
+  gap: 1rem;
+}
+
+.msg-logo{
+  background-color: rgba(40, 40, 40, 0.9); /* Dark background */
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.msg-logo img{
+  width: 25px;
+  border-radius: 50%;
+  object-fit: contain;
 }
 
 .youtube-video-card {
@@ -560,7 +624,7 @@ nav.navbar {
 /* Style for the videoSuggestions container */
 .videoSuggestions {
   display: flex;
-  width: 50vw;
+  width: 100%;
   flex-direction: column; /* Align items vertically */
   gap: 1.5rem; /* Add spacing between video cards */
   padding: 1rem; /* Add padding around the container */
@@ -568,6 +632,8 @@ nav.navbar {
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
+
+
 
 .youtube-video-card {
   background-color: rgba(40, 40, 40, 0.9); /* Dark background for cards */
@@ -604,22 +670,26 @@ nav.navbar {
 
 /* Style for video titles */
 .video-title {
-  font-size: 1.2rem; /* Adjust font size */
+  font-size: 1rem; /* Adjust font size */
   color: rgba(220, 220, 220, 0.9); /* Light text color */
-  text-align: center; /* Center-align the text */
-  margin-bottom: 0.5rem; /* Add spacing below the title */
+  text-align: left; /* Center-align the text */
   font-weight: bold; /* Make the title bold */
   max-width: 90%; /* Reduce the width slightly */
   margin: 0 auto; /* Center the title */
+}
+
+.video-title p{
+  margin-bottom: 0;
+
 }
 
 /* Style for video descriptions */
 .video-description {
   font-size: 1rem; /* Slightly smaller font size */
   color: rgba(180, 180, 180, 0.9); /* Dimmer text color */
-  text-align: justify; /* Justify the text */
+  text-align: left; /* Justify the text */
   line-height: 1.4; /* Improve readability */
-  max-width: 90%; /* Reduce the width slightly */
+  max-width: 100%; /* Reduce the width slightly */
   margin: 0 auto; /* Center the description */
 }
 
@@ -1134,7 +1204,7 @@ nav.navbar {
   flex-direction: column;
   padding: 1rem;
   overflow: hidden; /* Prevent content overflow */
-  transition: flex-basis 0.3s ease; /* Smooth slide-in effect */
+  transition: flex-basis 0.3s ease, transform 0.3s ease; /* Smooth slide-in effect */
 }
 
 .sliderNav-logo {
@@ -1179,10 +1249,6 @@ nav.navbar {
 }
 
 .slider-navbar .navbar-chat-history {
-  display: none;
-}
-
-.slider-navbar.open .navbar-chat-history {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -1191,6 +1257,13 @@ nav.navbar {
   margin-bottom: 0.5rem;
   overflow-y: scroll;
   scrollbar-width: none; /* Hide scrollbar for Firefox */
+  opacity: 1;
+  transform: translateY(0); /* Reset transform when open */
+}
+
+.slider-navbar.collapsed .navbar-chat-history {
+  display: none;
+  transform: translateY(-10px); /* Slight upward shift when collapsed */
 }
 
 .chat-history-item {
@@ -1226,12 +1299,22 @@ nav.navbar {
   cursor: pointer;
   z-index: 1001;
   width: 100%;
-  height: 3rem;
-  background-image: url("../images/sidebar-open.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.slider-navbar .slider-toggle-btn img {
+  width: 2rem;
+  height: 2rem;
+  transform: rotateZ(180deg);
+}
+
+.slider-navbar.collapsed .slider-toggle-btn img {
+  transform: rotateZ(0deg);
+}
+
 
 .slider-toggle-btn:focus, .slider-toggle-btn:hover {
   outline: none;
@@ -1276,10 +1359,6 @@ nav.navbar {
   border-radius: 50%;
 }
 
-.slider-navbar .profile:hover + .profile-popup {
-  display: block;
-}
-
 .popup-menu {
   position: absolute;
   bottom: 4rem;
@@ -1296,6 +1375,7 @@ nav.navbar {
   height: fit-content;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   animation: fadeIn 1s ease-in-out;
+  z-index: 100000;
 }
 
 .popup-menu.open {
@@ -1318,6 +1398,11 @@ nav.navbar {
   transition: background-color 0.3s ease, transform 0.2s ease,
     box-shadow 0.3s ease;
   font-size: 1rem;
+}
+
+.popup-item a{
+  text-decoration: none;
+  color: #fff;
 }
 
 .popup-item:hover {
@@ -1343,4 +1428,72 @@ nav.navbar {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* Sidebar Styling */
+.slider-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px; /* Default width for the sidebar */
+  background-color: rgba(30, 30, 30, 0.95); /* Dark background */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto; /* Allow scrolling for long content */
+  transition: width 0.3s ease, transform 0.3s ease; /* Smooth transition for width */
+}
+
+.slider-navbar.collapsed {
+  width: 60px; /* Collapsed width for the sidebar */
+  transition: width 0.3s ease, transform 0.3s ease; /* Ensure smooth collapse */
+}
+
+.slider-navbar .slider-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.slider-navbar .slider-nav-links li {
+  text-align: left;
+}
+
+.slider-navbar .slider-nav-links a {
+  text-decoration: none;
+  color: rgba(220, 220, 220, 0.9);
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.slider-navbar .slider-nav-links a:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.slider-navbar.open .slider-nav-links a {
+  transform: translateX(0); /* Reset transform when open */
+}
+
+.slider-navbar.collapsed .slider-nav-links a {
+  transform: translateX(-10px); /* Slight shift when collapsed */
+}
+
+/* Main Container Styling */
+.main-container {
+  margin-left: 250px; /* Default margin to account for the sidebar */
+  /* padding: 1rem; */
+  transition: margin-left 0.3s ease; /* Smooth transition for margin */
+  position: fixed;
+  height: 100%;
+}
+
+.slider-navbar.collapsed ~ .main-container {
+  margin-left: 60px; /* Adjust margin when the sidebar is collapsed */
+  width: 100%;
 }
