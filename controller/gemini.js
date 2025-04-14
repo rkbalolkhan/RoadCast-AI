@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+const geminiApiKey=process.env.GEMINI_API_KEY
 const genAI = new GoogleGenerativeAI("AIzaSyBvPjb_D-6exqhnXk8GN15er92_bJuGDIU");
 
 async function generatePodcastSearchData(userInput) {

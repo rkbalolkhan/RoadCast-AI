@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (form && msgBox) {
     form.addEventListener("submit", async (e) => {
-      console.log("Submitting...");
       e.preventDefault(); // Prevent form from reloading the page
 
       const userMessageInput = document.getElementById("user-message");

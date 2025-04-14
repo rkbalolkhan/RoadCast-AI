@@ -1,9 +1,8 @@
 const axios = require("axios");
 
 const getSpotifyAccessToken = async () => {
-  const clientId = "00275fb247c147aa9c9b2f9a1ebc8649";
-  const clientSecret = "30d9cfe6fd504799aa8b530d30eef061";
-
+  const clientId = process.env.SPOTIFY_CLIENT_ID
+  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
   const response = await axios.post(
     "https://accounts.spotify.com/api/token",
     new URLSearchParams({ grant_type: "client_credentials" }),

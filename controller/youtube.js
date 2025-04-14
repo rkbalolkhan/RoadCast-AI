@@ -3,7 +3,7 @@ const { response } = require("express");
 
 module.exports.getResult = async (query) => {
 
-  const API_KEY = "AIzaSyDwLkd7J-TCcZvxCgYE-FLFpeVxuIh0q-Y";
+  const API_KEY = process.env.YOUTUBE_API_KEY; // Make sure to set this in your environment variables
   const API_URL = `https://www.googleapis.com/youtube/v3/search`;
   let results=[];
 
