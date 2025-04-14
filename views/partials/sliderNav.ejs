@@ -10,15 +10,14 @@
     <img src="/svg/newChat.svg" alt="" srcset="">
   </button>
   <div class="navbar-chat-history">
-    <div class="history-day">
-      <p class="chats-date">Today</p>
+    <%if(currUser && (chats.length>0)){%>
+      <%for(let chat of chats){%>
       <div class="chat-history-item">
-        <p>Chat 1</p>
-        <i class="fa-solid fa-ellipsis-vertical" id="openChatMenu"></i>
+        <a href="/chat/<%=chat._id%>"><%=chat.name%></a>
+        <i class="fa-solid fa-ellipsis-vertical" class="openChatMenu"></i>
         <%- include("chatMenuPopup.ejs") %>
       </div>
-      
-    </div>
+      <%}}%>
     
   </div>
 

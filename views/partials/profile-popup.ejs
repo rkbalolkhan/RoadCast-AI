@@ -1,22 +1,29 @@
 
 <div id="profilePopup" class="popup-menu">
     <ul>
-        
-        <li class="popup-item">
-            <span>Ramish</span>
-        </li>
-        <li class="popup-item">
-            <a href=""><i class="fa-solid fa-gear"></i> <span>Settings</span></a>
-            
-        </li>
+        <%if(currUser){%>
+            <li class="popup-item">
+                <span><%=currUser.username%></span>
+            </li>
+            <%}%>
         <li class="popup-item">
             <a href="/contact"><i class="fa-regular fa-comments"></i> <span>Contact us</span></a>
         </li>
         <li class="popup-item">
-            <a href=""><i class="fa-solid fa-user-group"></i> <span>About us</span></a>
+            <a href="/about"><i class="fa-solid fa-user-group"></i> <span>About us</span></a>
+        </li>
+        <%if(!currUser) {%>
+        <li class="popup-item">
+            <a class="signup-link"><i class="fa-solid fa-user-plus"></i> <span>Signup</span></a>
         </li>
         <li class="popup-item">
-            <a href=""><i class="fa-solid fa-right-from-bracket"></i> <span>Log out</span></a>
+            <a class="login-link"><i class="fa-solid fa-user"></i> <span>Log in</span></a>
         </li>
+        <%}%>
+        <%if(currUser){%>
+        <li class="popup-item">
+            <a class="logout-link" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+        </li>
+        <%}%>
     </ul>
 </div>

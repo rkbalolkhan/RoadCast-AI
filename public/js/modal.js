@@ -5,19 +5,26 @@ document.addEventListener("DOMContentLoaded", () => {
   let closeLogin = document.getElementById("closeLogin");
   let closeLogout = document.getElementById("closeLogout");
   let closeSignup = document.getElementById("closeSignup");
-
+  let logoutLinks = document.querySelectorAll(".logout-link");
   // Open login modal
-  document.querySelector(".login-link").addEventListener("click", (e) => {
-    e.preventDefault();
-    closeLogin = document.getElementById("closeLogin");
-    loginModal.style.display = "block";
-    closeLogin.addEventListener("click", () => {
-      loginModal.style.display = "none";
+  const loginLink = document.querySelector(".login-link");
+  if (loginLink) {
+    loginLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeLogin = document.getElementById("closeLogin");
+      if (closeLogin) {
+        loginModal.style.display = "block";
+        closeLogin.addEventListener("click", () => {
+          loginModal.style.display = "none";
+        });
+      }
     });
-  });
+  }
 
   // Open signup modal
-  document.querySelector(".signup-link").addEventListener("click", (e) => {
+  const signupLink = document.querySelector(".signup-link");
+  if (signupLink) {
+  signupLink.addEventListener("click", (e) => {
     e.preventDefault();
     closeSignup = document.getElementById("closeSignup");
     signupModal.style.display = "block";
@@ -26,28 +33,34 @@ document.addEventListener("DOMContentLoaded", () => {
       signupModal.style.display = "none";
     });
   });
+}
 
   // Open logout modal
-  document.querySelector(".logout-link").addEventListener("click", (e) => {
-    e.preventDefault();
-    closeLogout = document.getElementById("closeLogout");
-    logoutModal.style.display = "block";
+  if(logoutLinks.length > 0) {
+    logoutLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        closeLogout = document.getElementById("closeLogout");
+        logoutModal.style.display = "block";
+        closeLogout.addEventListener("click", () => {
+          logoutModal.style.display = "none";
+        });
 
-    closeLogout.addEventListener("click", () => {
-      logoutModal.style.display = "none";
-    });
-  });
+        confirmLogout.addEventListener("click", () => {
+          alert("You have been logged out.");
+          logoutModal.style.display = "none";
+        });
+
+        // Cancel logout
+        cancelLogout.addEventListener("click", () => {
+          logoutModal.style.display = "none";
+        });
+      });
+    })
+  }
 
   // Confirm logout
-  confirmLogout.addEventListener("click", () => {
-    alert("You have been logged out.");
-    logoutModal.style.display = "none";
-  });
-
-  // Cancel logout
-  cancelLogout.addEventListener("click", () => {
-    logoutModal.style.display = "none";
-  });
+  
 
   // Close modals when clicking outside
   window.addEventListener("click", (e) => {

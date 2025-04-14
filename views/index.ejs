@@ -7,91 +7,36 @@
         <i class="fa-solid fa-ellipsis-vertical"></i>
       </div>
         <div id="msg-box">
-          <div class="msg-in">
-            <div class="msg-in-text">Suggest me a podcast</div>
-          </div>
-
-          <div class="msg-out">
-            <div class="msg-logo">
-              <img src="/images/logo.png" alt="" srcset="">
-            </div>
-            <% if (results && results.length > 0) { %>
-              <div class="videoSuggestions">
-                <p class="msg-out-text">Here are some suggestions:</p>
-                <% results.forEach(result => { %>
-                    <%-include('partials/videoCard', { result }) %>
-                  <% }) %>
-
-              </div>
-            <% } else { %>
-              <div class="msg-out-text">No results found.</div>
-            <% } %>
-          </div>
+          
         </div>
-        <form action="/search" method="get" id="search-form" class="row search-input-container " autocomplete="off">
-            <div class="search-wrap">
-                <div class="input-container">
-                    <div class="input-field-container">
-                      <input type="text" class="holo-input" name="query" placeholder="Message Pod X" />
-                      <div class="input-border"></div>
-                      <div class="holo-scan-line"></div>
-                      <div class="input-glow"></div>
-                      <div class="input-options">
-                        <label for="input-option-music" class="input-option">
-                          <input type="radio" name="input-option" id="input-option-music" ></input>
-                          
-                          <span><i class="fa-solid fa-video"></i>Video Podcast</span>
-                        </label>
-                        <label for="input-option-podcast" class="input-option">
-                          <input type="radio" name="input-option" id="input-option-podcast" ></input>
-                          
-                          <span><i class="fa-solid fa-microphone-lines"></i>Audio Podcast</span>
-                        </label>
-                      </div>
-                      <div class="input-active-indicator"><i class="fa-solid fa-arrow-up"></i></div>
-                      
-                  
-                      <div class="input-particles">
-                        <div
-                          class="input-particle"
-                          style="--index: 1; top: 20%; left: 10%;"
-                        ></div>
-                        <div
-                          class="input-particle"
-                          style="--index: 2; top: 65%; left: 25%;"
-                        ></div>
-                        <div
-                          class="input-particle"
-                          style="--index: 3; top: 40%; left: 40%;"
-                        ></div>
-                        <div
-                          class="input-particle"
-                          style="--index: 4; top: 75%; left: 60%;"
-                        ></div>
-                        <div
-                          class="input-particle"
-                          style="--index: 5; top: 30%; left: 75%;"
-                        ></div>
-                        <div
-                          class="input-particle"
-                          style="--index: 6; top: 60%; left: 90%;"
-                        ></div>
-                      </div>
-                      <div class="input-holo-overlay"></div>
-                      <div class="hex-decoration"></div>
-                      <div class="input-decoration">
-                        <div class="decoration-dot"></div>
-                        <div class="decoration-line"></div>
-                        <div class="decoration-dot"></div>
-                        <div class="decoration-line"></div>
-                        <div class="decoration-dot"></div>
-                        <div class="decoration-line"></div>
-                        <div class="decoration-dot"></div>
-                      </div>
-                    </div>
-                  </div>    
-            </div>       
-          </form>
+        <form id="search-form" class="row search-input-container" autocomplete="off">
+          <div class="search-wrap">
+            <div class="input-container">
+              <div class="input-field-container">
+                <input type="text" class="holo-input" placeholder="Message Pod X" id="user-message" />
+                <div class="input-border"></div>
+                <div class="holo-scan-line"></div>
+                <div class="input-glow"></div>
+                <div class="input-options">
+                  <label for="input-option-music" class="input-option">
+                    <input type="radio" name="input-option" id="input-option-music" />
+                    <span><i class="fa-solid fa-video"></i>Video Podcast</span>
+                  </label>
+                  <label for="input-option-podcast" class="input-option">
+                    <input type="radio" name="input-option" id="input-option-podcast" />
+                    <span><i class="fa-solid fa-microphone-lines"></i>Audio Podcast</span>
+                  </label>
+                </div>
+                <button type="submit" class="input-active-indicator"><i class="fa-solid fa-arrow-up"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
     </div>
     
   </body>
+
+  <script>
+    let messages = <%- JSON.stringify(messages || []) %>;
+    let chat=<%- JSON.stringify(chat) %>;
+  </script>

@@ -6,6 +6,10 @@ const chatSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    name: {
+        type: String,
+        default: "New Chat",
+    },
     messages: [
         {
             type: mongoose.Schema.Types.ObjectId,
