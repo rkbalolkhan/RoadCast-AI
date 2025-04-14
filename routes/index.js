@@ -1,42 +1,47 @@
 const express=require("express");
 const router = express.Router();
 const indexController=require("../controller/index.js");
-const {isSignedIn}=require("../middleware.js")
+const { ensureAuthenticated } = require("../middleware/auth.js")
+
 router
     .route("/about")
-    .get(indexController.getAbout)
+    .get(indexController.renderAboutPage)
 
 router
     .route("/contact")
-    .get(indexController.getContacts)
+    .get(indexController.renderContactPage)
 
 router
   .route("/register")
-  .get(indexController.registerUser)
+  .post(indexController.registerUser)
 
-router
-  .route("/logout")
-  .get(
-    isSignedIn,
-    indexController.logoutUser
-);
+router.route("/logout").get(
+  ensureAuthenticated,
+  indexController.logoutUser);
 
 router
   .route("/login")
-  .get(indexController.loginUser)
+  .post(indexController.loginUser)
 
 
 router
-  .route("/:chatID")
+  .route("/chat/:chatID")
   .get(
-    isSignedIn,
-    indexController.getResult
-);
+    ensureAuthenticated,
+    indexController.renderChatPage
+    )
+  .post(
+    ensureAuthenticated,
+    indexController.addMessage
+    );
 
 
 router
   .route("/")
-  .get(indexController.getIndex)
+  .get(indexController.renderIndexPage)
 
+router
+    .route("/test")
+    .get(indexController.addTestMessage)
 
 module.exports = router;

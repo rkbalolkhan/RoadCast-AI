@@ -6,9 +6,9 @@ const messageSchema = new mongoose.Schema({
         ref: "Chat",
         required: true,
     },
-    senderType: {
+    type: {
         type: String,
-        enum: ["user", "bot"], // Indicates if the sender is the user or the bot
+        enum: ["in", "out"],
         required: true,
     },
     content: {
