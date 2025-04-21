@@ -14,7 +14,7 @@
       <%for(let chat of chats){%>
       <div class="chat-history-item">
         <a href="/chat/<%=chat._id%>"><%=chat.name%></a>
-        <i class="fa-solid fa-ellipsis-vertical" class="openChatMenu"></i>
+        <i class="fa-solid fa-ellipsis-vertical openChatMenu"></i>
         <%- include("chatMenuPopup.ejs") %>
       </div>
       <%}}%>

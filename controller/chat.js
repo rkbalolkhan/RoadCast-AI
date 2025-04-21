@@ -18,7 +18,7 @@ module.exports.startNewChat = async (req, res) => {
 
     const newChat = new Chat({ user: req.user._id, messages: [], name: "New Chat" });
     await newChat.save();
-    res.redirect(`/chat/${newChat._id}`)
+    res.status(200).send(newChat)
   } catch (error) {
     console.error("Error starting new chat:", error);
     res.status(500).json({ error: "Error starting new chat." });
