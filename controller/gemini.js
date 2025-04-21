@@ -1,46 +1,29 @@
 require("dotenv").config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const geminiApiKey=process.env.GEMINI_API_KEY
-const genAI = new GoogleGenerativeAI("AIzaSyBvPjb_D-6exqhnXk8GN15er92_bJuGDIU");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-async function generatePodcastSearchData(userInput) {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+async function generatePodcastSearchQuery(userPrompt) {
+  try {
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.9,
+        maxOutputTokens: 50,
+      },
+    });
 
-  const prompt = `
-You are a helpful assistant that extracts podcast search queries and response text from user input.
+    const prompt = `Refine this user input into a concise podcast search query:\n"${userPrompt}"\n\nRespond with only the search query (under 10 words).`;
 
-Given a user's message about podcast preferences for a road trip:
-1. Generate a YouTube search query
-2. Generate a Spotify search query
-3. Write a short, friendly message to show the user before displaying podcast results
-
-Only provide the following format:
-
-YouTube Query: <query>
-Spotify Query: <query>
-Message: <short friendly message>
-
-Input: "${userInput}"
-Output:
-`;
-
-  const result = await model.generateContent(prompt);
-  const output = result.response.text();
-
-  // Optional: Parse the output into an object
-  const [youtubeLine, spotifyLine, messageLine] = output
-    .split("\n")
-    .filter(Boolean);
-  const youtubeQuery = youtubeLine?.replace("YouTube Query:", "").trim();
-  const spotifyQuery = spotifyLine?.replace("Spotify Query:", "").trim();
-  const message = messageLine?.replace("Message:", "").trim();
-
-  return {
-    youtubeQuery,
-    spotifyQuery,
-    message,
-  };
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text().trim();
+  } catch (error) {
+    console.error("Gemini Error:", error.message);
+    return "road trip podcast"; // fallback query
+  }
 }
 
-module.exports = { generatePodcastSearchData };
+module.exports = { generatePodcastSearchQuery };

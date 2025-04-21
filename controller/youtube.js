@@ -1,39 +1,40 @@
 const axios = require("axios");
 const { response } = require("express");
 
-module.exports.getResult = async (query) => {
+function extractVideoId(url) {
+  const regex = /(?:v=|\/)([0-9A-Za-z_-]{11})(?:\?|&|$)/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
 
-  const API_KEY = process.env.YOUTUBE_API_KEY; // Make sure to set this in your environment variables
-  const API_URL = `https://www.googleapis.com/youtube/v3/search`;
-  let results=[];
+module.exports.getResult = async (link) => {
+  const videoId = extractVideoId(link);
+  if (!videoId) {
+    throw new Error("Invalid YouTube video URL.");
+  }
+
+  const API_KEY = process.env.YOUTUBE_API_KEY;
+  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${API_KEY}`;
 
   try {
-    const response = await axios.get(API_URL, {
-        headers: {
-            "Content-Type": "application/json",
-            },
-        params: {
-            q: query,
-            type: "video",
-            key: API_KEY,
-            videoDuration: "long",
-            part: "snippet",
-            maxResults: 5,
-            order: "relevance",
-            safeSearch: "strict",
-        },
-    });
+    const response = await axios.get(apiUrl);
+    const items = response.data.items;
 
-    const data = response.data;
-    results = data.items.map((item) => ({
-      title: item.snippet.title,
-      link: `https://www.youtube.com/watch?v=${item.id.videoId}`,
-      thumbnail: item.snippet.thumbnails.default.url,
-      description: item.snippet.description, // Add video description
-    }));
+    if (items.length === 0) {
+      throw new Error("Video not found or inaccessible.");
+    }
+
+    const { title, description, thumbnails } = items[0].snippet;
+
+    return {
+      title,
+      description,
+      thumbnail: thumbnails.high?.url || thumbnails.default.url,
+      videoId,
+      videoUrl: `https://www.youtube.com/watch?v=${videoId}`,
+    };
   } catch (error) {
-    console.error("Error fetching data:", error);
-  } finally {
-    return results;
+    console.error("Failed to fetch video details:", error.message);
+    throw error;
   }
 };

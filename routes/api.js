@@ -8,9 +8,9 @@ const { generatePodcastSearchData } = require("../controller/gemini");
 const messageController = require("../controller/message.js");
 
 router
-    .route("/chat/new")
-    .post(ensureAuthenticated, chatController.startNewChat);
+  .route("/chat/new")
+  .post(ensureAuthenticated, chatController.startNewChat);
 
-router.post("/sendMessage", messageController.sendMessage);
+router.route("/sendMessage").post(messageController.sendMessage);
 
 module.exports = router;

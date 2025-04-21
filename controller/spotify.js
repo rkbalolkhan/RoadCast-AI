@@ -1,8 +1,9 @@
 const axios = require("axios");
 
 const getSpotifyAccessToken = async () => {
-  const clientId = process.env.SPOTIFY_CLIENT_ID
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
+  const clientId = process.env.SPOTIFY_CLIENT_ID;
+  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+
   const response = await axios.post(
     "https://accounts.spotify.com/api/token",
     new URLSearchParams({ grant_type: "client_credentials" }),
@@ -19,25 +20,42 @@ const getSpotifyAccessToken = async () => {
   return response.data.access_token;
 };
 
-module.exports.getResult = async (query) => {
+/**
+ * Extracts the Spotify ID from a given Spotify URL
+ */
+function extractSpotifyId(url) {
+  const regex = /spotify\.com\/(show|episode)\/([a-zA-Z0-9]+)/;
+  const match = url.match(regex);
+  return match ? { type: match[1], id: match[2] } : null;
+}
+
+/**
+ * Get Spotify Show or Episode details from URL
+ */
+module.exports.getResultFromUrl = async (url) => {
+  const idInfo = extractSpotifyId(url);
+  if (!idInfo) throw new Error("Invalid Spotify URL");
+
   const token = await getSpotifyAccessToken();
+  const { type, id } = idInfo;
 
-  const response = await axios.get("https://api.spotify.com/v1/search", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      q: query,
-      type: "show",
-      limit: 5,
-    },
-  });
+  const response = await axios.get(
+    `https://api.spotify.com/v1/${type}s/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-  return response.data.shows.items.map((show) => ({
-    name: show.name,
-    publisher: show.publisher,
-    url: show.external_urls.spotify,
-    image: show.images?.[0]?.url || "",
-    description: show.description,
-  }));
+  const data = response.data;
+
+  return {
+    type,
+    name: data.name,
+    publisher: data.publisher || data.show?.publisher,
+    url: data.external_urls.spotify,
+    image: data.images?.[0]?.url || data.show?.images?.[0]?.url || "",
+    description: data.description,
+  };
 };

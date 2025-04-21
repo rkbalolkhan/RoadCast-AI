@@ -1,66 +1,80 @@
 const Message = require("../models/Message.js");
 const Chat = require("../models/Chat.js");
-const youtube=require("./youtube.js");
-const spotify=require("./spotify.js");
-const { generatePodcastSearchData } = require("./gemini.js");
+const gemini = require("./gemini.js");
+const ListenNote=require("./listen-note.js")
 
-
-module.exports.sendMessage=async (req, res) => {
+module.exports.sendMessage = async (req, res) => {
   try {
-    const { content } = req.body;
+    const { content,chatID } = req.body;
 
     if (!content) {
       return res.status(400).json({ error: "Message content is required." });
     }
 
-    let chat = await Chat.findOne({ user: req.user._id });
+    let isNewChat = false;
+    let chat = await Chat.findOne({ user: req.user._id, _id:chatID });
+
     if (!chat) {
+      isNewChat = true;
       chat = new Chat({ user: req.user._id, messages: [] });
       await chat.save();
     }
 
-    // Save the user's message to the database
     const userMessage = new Message({
       chatId: chat._id,
       type: "in",
       content,
     });
     await userMessage.save();
+    let message="Here are podcasts for you";
+    let query = await gemini.generatePodcastSearchQuery(content);
+    let podcastSearchData = await ListenNote.searchPodcasts(query)
 
-    // Call Gemini to generate a response
-    const { youtubeQuery, spotifyQuery, message } =
-      await generatePodcastSearchData(content);
+    let FinalResult = "";
 
-    const youtubeResults = await youtube.getResult(youtubeQuery);
-    const spotifyResults = await spotify.getResult(spotifyQuery);
-    console.log("Youtube Results:", youtubeResults);
-    let youtubeFinalResult='';
-    let spotifyFinalResult='';
-    youtubeResults.forEach((result) => {
-      youtubeFinalResult+=`
-      <div class="youtube-video-card card">
-        <a href="${result.link}" target="_blank">
-            <div class="video-title card-body">
-                <p><strong>${result.title}</strong></p>
-                <p class="video-description">${result.description}</p>
-            </div>
-            <img src="${result.thumbnail}" alt="${result.title}" class="video-thumbnail">
-        </a>
-    </div>`;
-    });
 
-    spotifyResults.forEach((result) => {
-        spotifyFinalResult += `
+    for(let data of podcastSearchData){
+    FinalResult += `
         <div class="youtube-video-card card">
-            <a href="${result.url}" target="_blank">
-                <div class="video-title card-body">
-                    <p><strong>${result.name}</strong>${result.publisher}</p>
-                    <p class="video-description">${result.description}</p>
-                </div>
-                <img src="${result.image}" alt="${result.title}" class="video-thumbnail">
-            </a>
-        </div>`;
-    });
+          <a href="${data.link}" target="_blank">
+              <div class="video-title card-body">
+                  <p><strong>${data.title}</strong></p>
+                  <p class="video-description">${data.description}</p>
+              </div>
+              <img src="${data.thumbnail}" alt="${data.title}" class="video-thumbnail">
+          </a>
+        </div>;`;
+    
+    }
+
+
+    // for (const [platform, url] of Object.entries(links)) {
+    //   if (platform === "YouTube") {
+    //     const result = await youtubeController.getResult(url);
+    //     FinalResult += `
+    //     <div class="youtube-video-card card">
+    //       <a href="${result.videoUrl}" target="_blank">
+    //           <div class="video-title card-body">
+    //               <p><strong>${result.title}</strong></p>
+    //               <p class="video-description">${result.description}</p>
+    //           </div>
+    //           <img src="${result.thumbnail}" alt="${result.title}" class="video-thumbnail">
+    //       </a>
+    //     </div>;`;
+    //   } else if (platform === "Spotify") {
+    //     const result = await spotifyController.getResult(url);
+    //     FinalResult += `
+    //     <div class="youtube-video-card card">
+    //       <a href="${result.url}" target="_blank">
+    //           <div class="video-title card-body">
+    //               <p><strong>${result.name}</strong>,${result.publidher}</p>
+    //               <p class="video-description">${result.description}</p>
+    //           </div>
+    //           <img src="${result.image}" alt="${result.title}" class="video-thumbnail">
+    //       </a>
+    //     </div>;`;
+    //   }
+    // }
 
     const responseMessage = new Message({
       chatId: chat._id,
@@ -68,18 +82,22 @@ module.exports.sendMessage=async (req, res) => {
       content: `
       <div class="videoSuggestions">
         <p class="msg-out-text">${message}</p>
-        ${youtubeFinalResult}
-        ${spotifyFinalResult}
+        ${FinalResult}
       </div>
       `,
     });
+
     await responseMessage.save();
 
-    // Add the messages to the chat
     chat.messages.push(userMessage._id, responseMessage._id);
     await chat.save();
 
-    // Send the messages back to the frontend
+    if (isNewChat) {
+      return res
+        .redirect(`/chat/${chat._id}`)
+        .json({ userMessage, responseMessage });
+    }
+
     res.json({ userMessage, responseMessage });
   } catch (error) {
     console.error("Error handling message:", error);
