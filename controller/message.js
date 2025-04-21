@@ -27,8 +27,13 @@ module.exports.sendMessage = async (req, res) => {
     });
     await userMessage.save();
     let message="Here are podcasts for you";
-    let query = await gemini.generatePodcastSearchQuery(content);
-    let podcastSearchData = await ListenNote.searchPodcasts(query)
+    let { searchQuery, introMessage } = await gemini.generatePodcastSearchQuery(
+      content
+    );
+
+    console.log(searchQuery);
+    console.log(introMessage);
+    let podcastSearchData = await ListenNote.searchPodcasts(searchQuery)
 
     let FinalResult = "";
 
@@ -81,7 +86,7 @@ module.exports.sendMessage = async (req, res) => {
       type: "out",
       content: `
       <div class="videoSuggestions">
-        <p class="msg-out-text">${message}</p>
+        <p class="msg-out-text">${introMessage}</p>
         ${FinalResult}
       </div>
       `,

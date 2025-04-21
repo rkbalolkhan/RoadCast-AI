@@ -17,7 +17,6 @@ async function searchPodcasts(query) {
 
     for(let result of response.data.results){
         console.log(result);
-        console.dir(result);
     }
 
     const podcasts = response.data.results.map((podcast) => ({
@@ -29,6 +28,7 @@ async function searchPodcasts(query) {
 
     return podcasts;
   } catch (err) {
+    console.log(err)
     console.error("ListenNotes API Error:", err.message);
     return [];
   }
