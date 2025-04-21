@@ -1,13 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const radioButtons = document.querySelectorAll("input[name='input-option']");
+  const radioButtons = document.querySelectorAll("input[name='inputOption']");
 
   radioButtons.forEach((radio) => {
-    radio.addEventListener("click", function () {
+    radio.addEventListener("mousedown", function (e) {
+      // If already checked, mark a custom attribute to uncheck later
       if (this.checked) {
-        this.checked = false; // Uncheck if already checked
+        this.dataset.wasChecked = "true";
       } else {
-        this.checked = true; // Check if not already checked
+        this.dataset.wasChecked = "false";
       }
+    });
+
+    radio.addEventListener("click", function (e) {
+      // If the button was already checked, uncheck it
+      if (this.dataset.wasChecked === "true") {
+        this.checked = false;
+      }
+      // Clean up the custom attribute
+      this.dataset.wasChecked = "";
     });
   });
 
@@ -15,15 +25,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const msgBox = document.getElementById("msg-box");
   const sendButton = document.querySelector("input-active-indicator");
 
-
   if (form && msgBox) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault(); // Prevent form from reloading the page
 
       const userMessageInput = document.getElementById("user-message");
+      const inputOption = document.querySelector(
+        "input[name='inputOption']:checked"
+      ).value;
       if (!userMessageInput) return;
 
       const userMessage = userMessageInput.value.trim();
+      const chatID=chat._id
       if (!userMessage) {
         alert("Please enter a message.");
         return;
@@ -35,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ content: userMessage }),
+          body: JSON.stringify({ content: userMessage, option:inputOption, chatID:chatID}),
         });
 
         if (!response.ok) {
@@ -67,7 +80,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
-  
 });
-

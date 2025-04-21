@@ -13,17 +13,21 @@
           <div class="search-wrap">
             <div class="input-container">
               <div class="input-field-container">
-                <input type="text" class="holo-input" placeholder="Message Pod X" id="user-message" />
+                <input type="text" class="holo-input" placeholder="Message Pod X" id="user-message" name="content"/>
                 <div class="input-border"></div>
                 <div class="holo-scan-line"></div>
                 <div class="input-glow"></div>
                 <div class="input-options">
+                  <label for="input-option-all" class="input-option">
+                    <input type="radio" name="inputOption" id="input-option-all" value="all" checked/>
+                    <span><i class="fa-solid fa-globe"></i>All</span>
+                  </label>
                   <label for="input-option-music" class="input-option">
-                    <input type="radio" name="input-option" id="input-option-music" />
+                    <input type="radio" name="inputOption" id="input-option-music" value="audio" />
                     <span><i class="fa-solid fa-video"></i>Video Podcast</span>
                   </label>
                   <label for="input-option-podcast" class="input-option">
-                    <input type="radio" name="input-option" id="input-option-podcast" />
+                    <input type="radio" name="inputOption" id="input-option-podcast" value="video"/>
                     <span><i class="fa-solid fa-microphone-lines"></i>Audio Podcast</span>
                   </label>
                 </div>
