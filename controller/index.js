@@ -36,7 +36,7 @@ module.exports.registerUser = async (req, res) => {
 
     const newUser = new User({ firstName, lastName, username, email, password });
     await newUser.save();
-    res.status(201).send("User registered successfully");
+    res.redirect("/")
   } catch (error) {
     console.error("Error registering user:", error);
     res.status(500).send("Error registering user");
@@ -49,7 +49,7 @@ module.exports.loginUser = (req, res, next) => {
     if (err) return next(err);
     if (!user) {
       req.flash("error", "Invalid username or password.");
-      return res.redirect("/login");
+      return res.redirect("/");
     }
     req.logIn(user, (err) => {
       if (err) return next(err);

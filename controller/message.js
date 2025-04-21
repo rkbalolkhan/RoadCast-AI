@@ -5,7 +5,8 @@ const ListenNote=require("./listen-note.js")
 
 module.exports.sendMessage = async (req, res) => {
   try {
-    const { content,chatID } = req.body;
+    console.log(req.body)
+    const { content,option,chatID } = req.body;
 
     if (!content) {
       return res.status(400).json({ error: "Message content is required." });
@@ -13,7 +14,7 @@ module.exports.sendMessage = async (req, res) => {
 
     let isNewChat = false;
     let chat = await Chat.findOne({ user: req.user._id, _id:chatID });
-
+    console.log(chat)
     if (!chat) {
       isNewChat = true;
       chat = new Chat({ user: req.user._id, messages: [] });
@@ -26,13 +27,9 @@ module.exports.sendMessage = async (req, res) => {
       content,
     });
     await userMessage.save();
-    let message="Here are podcasts for you";
     let { searchQuery, introMessage } = await gemini.generatePodcastSearchQuery(
-      content
+      content, chatID
     );
-
-    console.log(searchQuery);
-    console.log(introMessage);
     let podcastSearchData = await ListenNote.searchPodcasts(searchQuery)
 
     let FinalResult = "";

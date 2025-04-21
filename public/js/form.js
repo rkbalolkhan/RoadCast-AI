@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!userMessageInput) return;
 
       const userMessage = userMessageInput.value.trim();
+      const chatID=chat._id
       if (!userMessage) {
         alert("Please enter a message.");
         return;
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ content: userMessage, option:inputOption, chatID:chat._id}),
+          body: JSON.stringify({ content: userMessage, option:inputOption, chatID:chatID}),
         });
 
         if (!response.ok) {

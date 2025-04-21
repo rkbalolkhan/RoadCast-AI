@@ -1,10 +1,20 @@
 require("dotenv").config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const GeminiLogs = require("../models/GeminiLogs");
+const Chat=require("../models/Chat.js")
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-async function generatePodcastSearchQuery(userPrompt) {
+async function generatePodcastSearchQuery(userPrompt, chatID) {
   try {
+    const history=await GeminiLogs.find({chatId:chatID}).sort({createdAt: 1});
+    const formattedHistory = history.map((log) => ({
+      role: log.role,
+      parts: log.parts.map((part) => ({ text: part.text })),
+    }));
+    const currChat=await Chat.findById(chatID);
+    console.log("history:",history)
+
     const model = genAI.getGenerativeModel({
       model: "gemini-2.0-flash",
       generationConfig: {
@@ -14,6 +24,10 @@ async function generatePodcastSearchQuery(userPrompt) {
         maxOutputTokens: 50,
       },
     });
+
+    const chat=model.startChat({
+      history:formattedHistory
+    })
 
 const prompt = `
 You are an assistant helping to suggest podcasts for road trips.
@@ -36,10 +50,31 @@ SearchQuery: <search query here>
 IntroMessage: <message here>
 `;
 
+  
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
+
+    const result = await chat.sendMessage(prompt);
+    const response = result.response;
     const text = response.text().trim();
+
+    let userLog = await new GeminiLogs({
+      role: "user",
+      chatId: currChat._id,
+      parts: [{ text: userPrompt }],
+    });
+    
+    await userLog.save();
+    
+    let modelLog = await new GeminiLogs({
+      role: "model",
+      text: text,
+      chatId: currChat._id,
+      parts: [{ text: text }],
+    });
+    currChat.geminiLog.push(userLog,modelLog);
+    await currChat.save();
+
+
     console.log("Gemini raw output:\n", text);
 
     // Use regex to find SearchQuery and IntroMessage

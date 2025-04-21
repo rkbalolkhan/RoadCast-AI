@@ -20,6 +20,10 @@ const chatSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    geminiLog:[{
+        type:mongoose.Types.ObjectId,
+        ref:"GeminiLogs"
+    }]
 });
 
 const Chat = mongoose.model("Chat", chatSchema);
