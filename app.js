@@ -53,7 +53,6 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.messages = req.flash();
   res.locals.currUser = req.user;
-  console.log("Current user:", req.user); // Debug log
   next();
 });
 

@@ -1,20 +1,20 @@
 const Message = require("../models/Message.js");
 const Chat = require("../models/Chat.js");
 const gemini = require("./gemini.js");
-const ListenNote=require("./listen-note.js")
+const ListenNote = require("./listen-note.js");
 
 module.exports.sendMessage = async (req, res) => {
   try {
-    console.log(req.body)
-    const { content,option,chatID } = req.body;
+    console.log(req.body);
+    const { content, option, chatID } = req.body;
 
     if (!content) {
       return res.status(400).json({ error: "Message content is required." });
     }
-
+    let FinalResult = "";
     let isNewChat = false;
-    let chat = await Chat.findOne({ user: req.user._id, _id:chatID });
-    console.log(chat)
+    let chat = await Chat.findOne({ user: req.user._id, _id: chatID });
+    console.log(chat);
     if (!chat) {
       isNewChat = true;
       chat = new Chat({ user: req.user._id, messages: [] });
@@ -27,16 +27,28 @@ module.exports.sendMessage = async (req, res) => {
       content,
     });
     await userMessage.save();
-    let { searchQuery, introMessage } = await gemini.generatePodcastSearchQuery(
-      content, chatID
-    );
-    let podcastSearchData = await ListenNote.searchPodcasts(searchQuery)
 
-    let FinalResult = "";
+    let podcastSearchData =undefined;
+    
 
+    let { searchQuery, introMessage, greetingMessage, invalidMessage } =
+      await gemini.generatePodcastSearchQuery(content, chatID);
+    
+    if (searchQuery != undefined && introMessage != undefined) {
+      podcastSearchData = await ListenNote.searchPodcasts(searchQuery);
 
-    for(let data of podcastSearchData){
-    FinalResult += `
+      if (podcastSearchData != undefined) {
+        if (podcastSearchData.length === 0) {
+          console.log("Podcast data not found");
+          introMessage = await gemini.noResultFound(
+            searchQuery,
+            chatID,
+            introMessage
+          );
+        } else {
+          console.log("Podcast data not found");
+          for (let data of podcastSearchData) {
+            FinalResult += `
         <div class="youtube-video-card card">
           <a href="${data.link}" target="_blank">
               <div class="video-title card-body">
@@ -46,37 +58,26 @@ module.exports.sendMessage = async (req, res) => {
               <img src="${data.thumbnail}" alt="${data.title}" class="video-thumbnail">
           </a>
         </div>;`;
-    
+          }
+        }
+      }
+    }
+    if (
+      introMessage == undefined &&
+      greetingMessage != undefined &&
+      invalidMessage == undefined
+    ) {
+      introMessage = greetingMessage;
+      
+    } else if (
+      introMessage == undefined &&
+      greetingMessage == undefined &&
+      invalidMessage != undefined
+    ) {
+      introMessage = invalidMessage;
     }
 
-
-    // for (const [platform, url] of Object.entries(links)) {
-    //   if (platform === "YouTube") {
-    //     const result = await youtubeController.getResult(url);
-    //     FinalResult += `
-    //     <div class="youtube-video-card card">
-    //       <a href="${result.videoUrl}" target="_blank">
-    //           <div class="video-title card-body">
-    //               <p><strong>${result.title}</strong></p>
-    //               <p class="video-description">${result.description}</p>
-    //           </div>
-    //           <img src="${result.thumbnail}" alt="${result.title}" class="video-thumbnail">
-    //       </a>
-    //     </div>;`;
-    //   } else if (platform === "Spotify") {
-    //     const result = await spotifyController.getResult(url);
-    //     FinalResult += `
-    //     <div class="youtube-video-card card">
-    //       <a href="${result.url}" target="_blank">
-    //           <div class="video-title card-body">
-    //               <p><strong>${result.name}</strong>,${result.publidher}</p>
-    //               <p class="video-description">${result.description}</p>
-    //           </div>
-    //           <img src="${result.image}" alt="${result.title}" class="video-thumbnail">
-    //       </a>
-    //     </div>;`;
-    //   }
-    // }
+    
 
     const responseMessage = new Message({
       chatId: chat._id,

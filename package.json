@@ -29,6 +29,7 @@
     "nodemon": "^3.1.9",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "podcast-api": "^2.0.4"
+    "podcast-api": "^2.0.4",
+    "rss-parser": "^3.13.0"
   }
 }

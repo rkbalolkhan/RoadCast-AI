@@ -8,6 +8,7 @@ const geminiController = require("./gemini.js");
 const { registerValidation, loginValidation } = require("../validation.js");
 const passport = require("passport");
 const chatController = require("./chat.js");
+const rssFeedController = require("./rss-feed.js");
 
 module.exports.renderIndexPage = async (req, res) => {
   let chats = [];
